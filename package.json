@@ -1,0 +1,35 @@
+{
+  "name": "gastromatic-front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matuella/gastromatic-front.git"
+  },
+  "author": "Guilherme Matuella",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matuella/gastromatic-front/issues"
+  },
+  "homepage": "https://github.com/matuella/gastromatic-front#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "express": "^4.14.0",
+    "foundation-sites": "^6.2.3"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-uglify": "^2.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
