@@ -3,7 +3,7 @@ var angular = require('angular');
 require('angular-route');
 require('angular-resource');
 
-var app = angular.module('gastromaticApp', [ 'ngRoute', 'ngResource' ]);
+var app = angular.module('gastromaticApp', [ 'ngRoute' ]);
 
 require('./service');
 require('./controller');
@@ -22,50 +22,37 @@ app.config(function($routeProvider) {
   });
 });
 },{"./controller":3,"./service":5,"angular":11,"angular-resource":7,"angular-route":9}],2:[function(require,module,exports){
-'use strict';
+module.exports = function ($scope, CursoService) {
 
-module.exports = function($scope, CursoService) {
-
-	// $scope.cursos = CursoService.query();
-
-	// $scope.addCurso = function(curso) {
-	// 	CursoService.create(curso);
-	// 	curso = null;
-	// };
-	$scope.test = CursoService.test();
+    CursoService.getCursos().then(function(response) {
+        $scope.cursos = response.data;
+    });
+    // $scope.addCurso = function(curso) {
+    // 	CursoService.create(curso);
+    // 	curso = null;
+    // };
 }
 },{}],3:[function(require,module,exports){
-'use strict';
-
 var app = require('angular').module('gastromaticApp');
 
 app.controller('CursoController', require('./curso'));
 },{"./curso":2,"angular":11}],4:[function(require,module,exports){
-'use strict';
+module.exports = function ($http, $log) {
 
-module.exports = function(){
-	
-	var baseUrl = 'http://localhost:8080/gastromatic/';
-	this.test = function () {
-		return "TESTE CONEXÃO SERVICE-CONTROLLER COM BROWSERIFY";
-	}
+    var root = 'http://localhost:8080/gastromatic/curso';
 
-	
-//	var Curso = $resource('/api/1/todo/:id');
-// 	var Curso = $resource('http://localhost:8080/gastromatic/curso/:id');
-	
-//    return $resource(baseUrl + 'curso/', {}, {
-//        get: { method: 'GET'},
-//        query: { method: 'GET', isArray: true },
-//        create: {method: 'POST'},
-//        edit: {method: 'PUT'},
-//        delete: {method: 'DELETE'}
-//    });
+    this.getCursos = function () {
+        var cursosPromise = $http.get(root + '/listCursos');
+
+        cursosPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return cursosPromise;
+    }
 }
 
 },{}],5:[function(require,module,exports){
-'use strict';
-
 var app = require('angular').module('gastromaticApp');
 
 app.service('CursoService', require('./curso'));

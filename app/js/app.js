@@ -2,7 +2,7 @@ var angular = require('angular');
 require('angular-route');
 require('angular-resource');
 
-var app = angular.module('gastromaticApp', [ 'ngRoute', 'ngResource' ]);
+var app = angular.module('gastromaticApp', [ 'ngRoute' ]);
 
 require('./service');
 require('./controller');

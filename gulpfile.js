@@ -28,5 +28,4 @@ gulp.task('watch', function () {
     gulp.watch(jsPath, ['browserify']);
 });
 
-gulp.task('default', ['browserify']);
-gulp.task('watch', ['watch']);
+//gulp.task('default', ['browserify']);
