@@ -24,13 +24,25 @@ app.config(function($routeProvider) {
 },{"./controller":3,"./service":5,"angular":11,"angular-resource":7,"angular-route":9}],2:[function(require,module,exports){
 module.exports = function ($scope, CursoService) {
 
-    CursoService.getCursos().then(function(response) {
-        $scope.cursos = response.data;
+    CursoService.listCursos().then(function(response) {
+        //Tá retornando duas promises pq?
+        if(response.status == 200){
+            $scope.cursos = response.data;
+        } else{
+            //tratar erro
+        }
     });
-    // $scope.addCurso = function(curso) {
-    // 	CursoService.create(curso);
-    // 	curso = null;
-    // };
+
+    $scope.addCurso = function(novoCurso){
+        CursoService.createCurso(novoCurso).then(function (response) {
+            if(response.status == 200){
+                $scope.cursos.push(novoCurso); //Isso não vai dar problema de inconsistência por n ter o id?
+            } else{
+                //Tratar erro com pop-up na tela.
+            }
+            delete $scope.curso;
+        });
+    }
 }
 },{}],3:[function(require,module,exports){
 var app = require('angular').module('gastromaticApp');
@@ -41,14 +53,25 @@ module.exports = function ($http, $log) {
 
     var root = 'http://localhost:8080/gastromatic/curso';
 
-    this.getCursos = function () {
-        var cursosPromise = $http.get(root + '/listCursos');
+    this.listCursos = function () {
+        var listCursosPromise = $http.get(root + '/listCursos');
 
-        cursosPromise.error(function (data, status, headers, config) {
+        listCursosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
         });
 
-        return cursosPromise;
+        return listCursosPromise;
+    }
+
+    this.createCurso = function (novoCurso) {
+        console.log(novoCurso);
+        var createCursoPromise = $http.post(root + '/addCurso', novoCurso);
+
+        createCursoPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return createCursoPromise;
     }
 }
 

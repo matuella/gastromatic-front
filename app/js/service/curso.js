@@ -2,13 +2,24 @@ module.exports = function ($http, $log) {
 
     var root = 'http://localhost:8080/gastromatic/curso';
 
-    this.getCursos = function () {
-        var cursosPromise = $http.get(root + '/listCursos');
+    this.listCursos = function () {
+        var listCursosPromise = $http.get(root + '/listCursos');
 
-        cursosPromise.error(function (data, status, headers, config) {
+        listCursosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
         });
 
-        return cursosPromise;
+        return listCursosPromise;
+    }
+
+    this.createCurso = function (novoCurso) {
+        console.log(novoCurso);
+        var createCursoPromise = $http.post(root + '/addCurso', novoCurso);
+
+        createCursoPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return createCursoPromise;
     }
 }
