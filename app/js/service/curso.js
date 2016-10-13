@@ -1,9 +1,7 @@
-module.exports = function ($http, $log) {
-
-    var root = 'http://localhost:8080/gastromatic/curso';
+module.exports = function ($http, $log, config) {
 
     this.listCursos = function () {
-        var listCursosPromise = $http.get(root + '/listCursos');
+        var listCursosPromise = $http.get(config.rootUrl + '/curso/list');
 
         listCursosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -12,14 +10,33 @@ module.exports = function ($http, $log) {
         return listCursosPromise;
     }
 
-    this.createCurso = function (novoCurso) {
-        console.log(novoCurso);
-        var createCursoPromise = $http.post(root + '/addCurso', novoCurso);
+    this.getCurso = function (cursoId) {
+        var getCursoPromise = $http.get(config.rootUrl + '/curso/find/' + cursoId);
+
+        getCursoPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return getCursoPromise;
+    }
+
+    this.createCurso = function (newCurso) {
+        var createCursoPromise = $http.post(config.rootUrl + '/curso/add', newCurso);
 
         createCursoPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
         });
 
         return createCursoPromise;
+    }
+
+    this.deleteCurso = function (deletedCursoId) {
+        var deleteCursoPromise = $http.delete(config.rootUrl + '/curso/delete/' + deletedCursoId);
+
+        deleteCursoPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return deleteCursoPromise;
     }
 }

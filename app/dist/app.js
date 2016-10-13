@@ -8,20 +8,29 @@ var app = angular.module('gastromaticApp', [ 'ngRoute' ]);
 require('./service');
 require('./controller');
 
+app.value("config", function () {
+   rootUrl: "http://localhost:8080/gastromatic"
+});
+
 app.config(function($routeProvider) {
-	
+
   $routeProvider.when('/curso', {
     templateUrl: 'views/curso.html',
     controller: 'CursoController'
   })
   .when('/roteiro', {
-    templateUrl: 'views/roteiro.html'
+    templateUrl: 'views/roteiro.html',
+    controller: 'RoteiroController'
+  })
+  .when('/requisicao', {
+    templateUrl: 'views/requisicao.html',
+    controller: 'RequisicaoController'
   })
   .otherwise({
     redirectTo: '/curso'
   });
 });
-},{"./controller":3,"./service":5,"angular":11,"angular-resource":7,"angular-route":9}],2:[function(require,module,exports){
+},{"./controller":3,"./service":6,"angular":14,"angular-resource":10,"angular-route":12}],2:[function(require,module,exports){
 module.exports = function ($scope, CursoService) {
 
     CursoService.listCursos().then(function(response) {
@@ -48,13 +57,45 @@ module.exports = function ($scope, CursoService) {
 var app = require('angular').module('gastromaticApp');
 
 app.controller('CursoController', require('./curso'));
-},{"./curso":2,"angular":11}],4:[function(require,module,exports){
-module.exports = function ($http, $log) {
+},{"./curso":2,"angular":14}],4:[function(require,module,exports){
+module.exports = function ($http, $log, config) {
 
-    var root = 'http://localhost:8080/gastromatic/curso';
+    this.listAulas = function () {
+        var listAulasPromise = $http.get(config.rootUrl + '/aula/list');
+
+        listAulasPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return listAulasPromise;
+    }
+
+    this.createAula = function (newAula) {
+        var createAulaPromise = $http.post(config.rootUrl + '/aula/add', newAula);
+
+        createAulaPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return createAulaPromise;
+    }
+
+    this.deleteAula = function (deletedAulaId) {
+        var deleteAulaPromise = $http.delete(config.rootUrl + '/aula/delete/' + deletedAulaId);
+
+        deleteAulaPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return deleteAulaPromise;
+    }
+}
+
+},{}],5:[function(require,module,exports){
+module.exports = function ($http, $log, config) {
 
     this.listCursos = function () {
-        var listCursosPromise = $http.get(root + '/listCursos');
+        var listCursosPromise = $http.get(config.rootUrl + '/curso/list');
 
         listCursosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -63,9 +104,18 @@ module.exports = function ($http, $log) {
         return listCursosPromise;
     }
 
-    this.createCurso = function (novoCurso) {
-        console.log(novoCurso);
-        var createCursoPromise = $http.post(root + '/addCurso', novoCurso);
+    this.getCurso = function (cursoId) {
+        var getCursoPromise = $http.get(config.rootUrl + '/curso/find/' + cursoId);
+
+        getCursoPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return getCursoPromise;
+    }
+
+    this.createCurso = function (newCurso) {
+        var createCursoPromise = $http.post(config.rootUrl + '/curso/add', newCurso);
 
         createCursoPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -73,13 +123,66 @@ module.exports = function ($http, $log) {
 
         return createCursoPromise;
     }
+
+    this.deleteCurso = function (deletedCursoId) {
+        var deleteCursoPromise = $http.delete(config.rootUrl + '/curso/delete/' + deletedCursoId);
+
+        deleteCursoPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return deleteCursoPromise;
+    }
 }
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 var app = require('angular').module('gastromaticApp');
 
 app.service('CursoService', require('./curso'));
-},{"./curso":4,"angular":11}],6:[function(require,module,exports){
+app.service('RoteiroService', require('./roteiro'));
+app.service('AulaService', require('./aula'));
+app.service('RequisicaoService', require('./requisicao'));
+},{"./aula":4,"./curso":5,"./requisicao":7,"./roteiro":8,"angular":14}],7:[function(require,module,exports){
+module.exports = function ($http, $log, config) {
+
+}
+
+},{}],8:[function(require,module,exports){
+module.exports = function ($http, $log, config) {
+
+    this.listRoteiros = function () {
+        var listRoteirosPromise = $http.get(config.rootUrl + '/roteiro/list');
+
+        listRoteirosPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return listRoteirosPromise;
+    }
+
+    this.createRoteiro = function (newRoteiro) {
+        var createRoteiroPromise = $http.post(config.rootUrl + '/roteiro/add', newRoteiro);
+
+        createRoteiroPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return createRoteiroPromise;
+    }
+
+    this.deleteRoteiro = function (deletedRoteiroId) {
+        var deleteRoteiroPromise = $http.delete(config.rootUrl + '/roteiro/delete/' + deletedRoteiroId);
+
+        deleteRoteiroPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return deleteRoteiroPromise;
+    }
+
+}
+
+},{}],9:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -944,11 +1047,11 @@ angular.module('ngResource', ['ng']).
 
 })(window, window.angular);
 
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 require('./angular-resource');
 module.exports = 'ngResource';
 
-},{"./angular-resource":6}],8:[function(require,module,exports){
+},{"./angular-resource":9}],11:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -2019,11 +2122,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":8}],10:[function(require,module,exports){
+},{"./angular-route":11}],13:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -33792,8 +33895,8 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":10}]},{},[1]);
+},{"./angular":13}]},{},[1]);

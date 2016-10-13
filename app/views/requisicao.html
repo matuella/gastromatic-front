@@ -1,0 +1,47 @@
+<div class="expanded row">
+    <div class="small-12 columns"
+         style="border: 5px solid black; padding: 0px; margin: 0px; background: green;">
+        <h2 class="text-center">Requisições</h2>
+    </div>
+    <form>
+        <div class="small-1 columns"></div>
+        <div class="small-10 columns">
+            <label>Curso
+                <select ng-model="cursoSelecionado">
+                    <option selected>Selecione um curso</option>
+                    <option ng-repeat="curso in cursos">{{curso.nome}}</option>
+                </select>
+            </label>
+            <label>Roteiro
+                <select ng-model="roteiroSelecionado">
+                    <option selected>Selecione um roteiro</option>
+                    <option ng-repeat="roteiro in cursoSelecionado.roteiros">{{roteiro.nome}}</option>
+                </select>
+            </label>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Aula</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="aula in roteiroSelecionado.aulas">
+                    <td>{{aula.nome}}</td>
+                    <td>Rem_Icon</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="small-1 columns"></div>
+
+        <div class="small-1 columns"></div>
+        <div class="small-10 columns">
+            <label>Select Menu
+                <select>
+                    <option ng-repeat="cur in cursos">{{cur.nome}}</option>
+                </select>
+            </label>
+        </div>
+    </form>
+</div>
