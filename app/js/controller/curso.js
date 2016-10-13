@@ -1,7 +1,6 @@
 module.exports = function ($scope, CursoService) {
 
     CursoService.listCursos().then(function(response) {
-        //Tá retornando duas promises pq?
         if(response.status == 200){
             $scope.cursos = response.data;
         } else{

@@ -4,12 +4,12 @@ require('angular-resource');
 
 var app = angular.module('gastromaticApp', [ 'ngRoute' ]);
 
+app.value("config", {
+  rootUrl: "http://localhost:8080/gastromatic"
+});
+
 require('./service');
 require('./controller');
-
-app.value("config", function () {
-   rootUrl: "http://localhost:8080/gastromatic"
-});
 
 app.config(function($routeProvider) {
 

@@ -5,12 +5,12 @@ require('angular-resource');
 
 var app = angular.module('gastromaticApp', [ 'ngRoute' ]);
 
+app.value("config", {
+  rootUrl: "http://localhost:8080/gastromatic"
+});
+
 require('./service');
 require('./controller');
-
-app.value("config", function () {
-   rootUrl: "http://localhost:8080/gastromatic"
-});
 
 app.config(function($routeProvider) {
 
@@ -34,7 +34,6 @@ app.config(function($routeProvider) {
 module.exports = function ($scope, CursoService) {
 
     CursoService.listCursos().then(function(response) {
-        //Tá retornando duas promises pq?
         if(response.status == 200){
             $scope.cursos = response.data;
         } else{
