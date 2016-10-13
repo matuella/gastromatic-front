@@ -1,5 +1,23 @@
+@font-face {
+    font-family: "PlayfairDisplay";
+    src: url("fonts/Playfair Display/PlayfairDisplay-Regular.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "TrackType";
+    src: url("fonts/Track Type/Track.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: PlayfairDisplay;
+}
+
 .background {
-    background-image: url(../images/blurred-bg-green.jpg);
+    background-image: url(images/blurred-bg-green.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -7,4 +25,14 @@
 
 .two-column-padding{
     padding: 0% 8%;
+}
+
+.main-title{
+    font-family: TrackType;
+    font-size: 400%;
+}
+
+.secondary-title{
+    font-family: TrackType;
+    font-size: 250%;
 }
