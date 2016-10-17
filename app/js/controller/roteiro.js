@@ -10,18 +10,20 @@ module.exports = function ($scope, RoteiroService) {
         }
     });
 
-    CursoService.listCursos().then(function(response) {
+    RoteiroService.listCursos().then(function(response) {
         if(response.status == 200){
-            $scope.cursosCadastrados = jsog.decode(response.data);
+            $scope.cursosDisponiveis = jsog.decode(response.data);
         } else{
             //tratar erro
         }
     });
 
     $scope.addRoteiro = function(novoRoteiro){
-        CursoService.createRoteiro(novoRoteiro).then(function (response) {
+        jsogRoteiro = jsog.encode(novoRoteiro);
+
+        RoteiroService.createRoteiro(jsogRoteiro).then(function (response) {
             if(response.status == 200){
-                $scope.cursos.push(novoRoteiro); //Isso não vai dar problema de inconsistência por n ter o id?
+                $scope.roteiros.push(jsog.decode(response.data)); //Isso não vai dar problema de inconsistência por n ter o id?
             } else{
                 //Tratar erro com pop-up na tela.
             }

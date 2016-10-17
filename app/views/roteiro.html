@@ -9,9 +9,7 @@
             Nome <input type="text" ng-model="roteiro.nome"><br>
             Detalhes <textarea type="text" rows="5" ng-model="roteiro.detalhes"></textarea>
             <label>Curso
-                <select ng-model="roteiro.curso">
-                    <option selected>Selecione um curso</option>
-                    <option ng-repeat="curso in cursosDisponiveis">{{curso.nome}}</option>
+                <select ng-options="curso as curso.nome for curso in cursosDisponiveis track by curso.nome" ng-model="roteiro.curso">
                 </select>
             </label>
             <button type="button" class="success button expanded"
