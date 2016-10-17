@@ -22,7 +22,8 @@
     "angular-resource": "^1.5.8",
     "angular-route": "^1.5.8",
     "express": "^4.14.0",
-    "foundation-sites": "^6.2.3"
+    "foundation-sites": "^6.2.3",
+    "jsog": "^1.0.7"
   },
   "devDependencies": {
     "browserify": "^13.1.0",

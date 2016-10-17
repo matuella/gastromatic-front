@@ -1,8 +1,10 @@
+var jsog = require('jsog');
+
 module.exports = function ($scope, CursoService) {
 
     CursoService.listCursos().then(function(response) {
         if(response.status == 200){
-            $scope.cursos = response.data;
+            $scope.cursos = jsog.decode(response.data);
         } else{
             //tratar erro
         }
