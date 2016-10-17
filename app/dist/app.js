@@ -26,11 +26,41 @@ app.config(function ($routeProvider) {
             templateUrl: 'views/requisicao.html',
             controller: 'RequisicaoController'
         })
+        .when('/aula', {
+            templateUrl: 'views/aula.html',
+            controller: 'AulaController'
+        })
         .otherwise({
             redirectTo: '/curso'
         });
 });
-},{"./controller":3,"./service":7,"angular":15,"angular-resource":11,"angular-route":13}],2:[function(require,module,exports){
+},{"./controller":4,"./service":9,"angular":17,"angular-resource":13,"angular-route":15}],2:[function(require,module,exports){
+var jsog = require('jsog');
+
+module.exports = function ($scope, AulaService) {
+
+    AulaService.listAulas().then(function(response) {
+        if(response.status == 200){
+            $scope.aulas = jsog.decode(response.data);
+        } else{
+            //tratar erro
+        }
+    });
+
+    $scope.addAula = function(novaAula){
+        jsogAula = jsog.encode(novaAula);
+
+        AulaService.createAula(jsogAula).then(function (response) {
+            if(response.status == 200){
+                $scope.aulas.push(jsog.decode(response.data)); //Isso não vai dar problema de inconsistência por n ter o id?
+            } else{
+                //Tratar erro com pop-up na tela.
+            }
+            delete $scope.aula;
+        });
+    }
+}
+},{"jsog":18}],3:[function(require,module,exports){
 var jsog = require('jsog');
 
 module.exports = function ($scope, CursoService) {
@@ -44,9 +74,11 @@ module.exports = function ($scope, CursoService) {
     });
 
     $scope.addCurso = function(novoCurso){
-        CursoService.createCurso(novoCurso).then(function (response) {
+        jsogCurso = jsog.encode(novoCurso);
+
+        CursoService.createCurso(jsogCurso).then(function (response) {
             if(response.status == 200){
-                $scope.cursos.push(novoCurso); //Isso não vai dar problema de inconsistência por n ter o id?
+                $scope.cursos.push(jsog.decode(response.data));
             } else{
                 //Tratar erro com pop-up na tela.
             }
@@ -54,12 +86,31 @@ module.exports = function ($scope, CursoService) {
         });
     }
 }
-},{"jsog":16}],3:[function(require,module,exports){
+},{"jsog":18}],4:[function(require,module,exports){
 var app = require('angular').module('gastromaticApp');
 
 app.controller('CursoController', require('./curso'));
 app.controller('RoteiroController', require('./roteiro'));
-},{"./curso":2,"./roteiro":4,"angular":15}],4:[function(require,module,exports){
+app.controller('AulaController', require('./aula'));
+app.controller('RequisicaoController', require('./requisicao'));
+},{"./aula":2,"./curso":3,"./requisicao":5,"./roteiro":6,"angular":17}],5:[function(require,module,exports){
+/**
+ * Created by guilh on 17/10/2016.
+ */
+var jsog = require('jsog');
+
+module.exports = function ($scope, RequisicaoService) {
+
+    RequisicaoService.listCursos().then(function(response) {
+        if(response.status == 200){
+            $scope.cursosDisponiveis = jsog.decode(response.data);
+        } else{
+            //tratar erro
+        }
+    });
+
+}
+},{"jsog":18}],6:[function(require,module,exports){
 var jsog = require('jsog');
 
 module.exports = function ($scope, RoteiroService) {
@@ -93,7 +144,7 @@ module.exports = function ($scope, RoteiroService) {
         });
     }
 }
-},{"jsog":16}],5:[function(require,module,exports){
+},{"jsog":18}],7:[function(require,module,exports){
 module.exports = function ($http, $log, config) {
 
     this.listAulas = function () {
@@ -127,7 +178,7 @@ module.exports = function ($http, $log, config) {
     }
 }
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = function ($http, $log, config) {
 
     this.listCursos = function () {
@@ -171,19 +222,29 @@ module.exports = function ($http, $log, config) {
     }
 }
 
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var app = require('angular').module('gastromaticApp');
 
 app.service('CursoService', require('./curso'));
 app.service('RoteiroService', require('./roteiro'));
 app.service('AulaService', require('./aula'));
 app.service('RequisicaoService', require('./requisicao'));
-},{"./aula":5,"./curso":6,"./requisicao":8,"./roteiro":9,"angular":15}],8:[function(require,module,exports){
+},{"./aula":7,"./curso":8,"./requisicao":10,"./roteiro":11,"angular":17}],10:[function(require,module,exports){
 module.exports = function ($http, $log, config) {
+
+    this.listCursos = function () {
+        var listCursosPromise = $http.get(config.rootUrl + '/curso/list');
+
+        listCursosPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return listCursosPromise;
+    }
 
 }
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports = function ($http, $log, config) {
 
     this.listRoteiros = function () {
@@ -228,7 +289,7 @@ module.exports = function ($http, $log, config) {
 
 }
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1093,11 +1154,11 @@ angular.module('ngResource', ['ng']).
 
 })(window, window.angular);
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 require('./angular-resource');
 module.exports = 'ngResource';
 
-},{"./angular-resource":10}],12:[function(require,module,exports){
+},{"./angular-resource":12}],14:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -2168,11 +2229,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":12}],14:[function(require,module,exports){
+},{"./angular-route":14}],16:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -33941,11 +34002,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":14}],16:[function(require,module,exports){
+},{"./angular":16}],18:[function(require,module,exports){
 // Generated by CoffeeScript 1.9.1
 (function() {
   var JSOG, JSOG_OBJECT_ID, hasCustomJsonificaiton, isArray, nextId;

@@ -4,44 +4,33 @@
         <h2 class="text-center">Requisições</h2>
     </div>
     <form>
-        <div class="small-1 columns"></div>
-        <div class="small-10 columns">
+        <div class="small-offset-4 small-4 columns end">
             <label>Curso
-                <select ng-model="cursoSelecionado">
-                    <option selected>Selecione um curso</option>
-                    <option ng-repeat="curso in cursos">{{curso.nome}}</option>
-                </select>
+                    <select ng-change="listarRoteirosVinculados()" ng-options="curso as curso.nome for curso in cursosDisponiveis track by curso.nome" ng-model="cursoSelecionado">
+                    </select>
             </label>
+        </div>
+        <div class="small-offset-4 small-4 columns end">
             <label>Roteiro
-                <select ng-model="roteiroSelecionado">
-                    <option selected>Selecione um roteiro</option>
-                    <option ng-repeat="roteiro in cursoSelecionado.roteiros">{{roteiro.nome}}</option>
+                <select ng-options="roteiro as roteiro.nome for roteiro in cursoSelecionado.roteiros track by roteiro.nome" ng-model="roteiroSelecionado">
                 </select>
             </label>
+            </div>
+        <div class="small-offset-2 small-8 columns end">
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th>Adicionar</th>
                     <th>Aula</th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="aula in roteiroSelecionado.aulas">
+                    <!--<td><input type="checkbox" ng-change="changeValue(aula)"/></td>-->
                     <td>{{aula.nome}}</td>
-                    <td>Rem_Icon</td>
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="small-1 columns"></div>
-
-        <div class="small-1 columns"></div>
-        <div class="small-10 columns">
-            <label>Select Menu
-                <select>
-                    <option ng-repeat="cur in cursos">{{cur.nome}}</option>
-                </select>
-            </label>
         </div>
     </form>
 </div>

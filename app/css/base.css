@@ -36,3 +36,10 @@ body{
     font-family: TrackType;
     font-size: 250%;
 }
+
+.background-curso{
+    background-image: url(images/cursos.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}

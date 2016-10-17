@@ -11,9 +11,11 @@ module.exports = function ($scope, CursoService) {
     });
 
     $scope.addCurso = function(novoCurso){
-        CursoService.createCurso(novoCurso).then(function (response) {
+        jsogCurso = jsog.encode(novoCurso);
+
+        CursoService.createCurso(jsogCurso).then(function (response) {
             if(response.status == 200){
-                $scope.cursos.push(novoCurso); //Isso não vai dar problema de inconsistência por n ter o id?
+                $scope.cursos.push(jsog.decode(response.data));
             } else{
                 //Tratar erro com pop-up na tela.
             }
