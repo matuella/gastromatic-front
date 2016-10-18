@@ -1,7 +1,7 @@
 module.exports = function ($http, $log, config) {
 
     this.listRoteiros = function () {
-        var listRoteirosPromise = $http.get(config.rootUrl + '/roteiro/list');
+        var listRoteirosPromise = $http.get(config.rootUrl + '/roteiros');
 
         listRoteirosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -11,7 +11,7 @@ module.exports = function ($http, $log, config) {
     }
 
     this.listCursos = function () {
-        var listCursosPromise = $http.get(config.rootUrl + '/curso/list');
+        var listCursosPromise = $http.get(config.rootUrl + '/cursos');
 
         listCursosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -20,18 +20,18 @@ module.exports = function ($http, $log, config) {
         return listCursosPromise;
     }
 
-    this.createRoteiro = function (newRoteiro) {
-        var createRoteiroPromise = $http.post(config.rootUrl + '/roteiro/add', newRoteiro);
+    this.saveRoteiro = function (newRoteiro) {
+        var saveRoteiroPromise = $http.post(config.rootUrl + '/roteiros/', newRoteiro);
 
-        createRoteiroPromise.error(function (data, status, headers, config) {
+        saveRoteiroPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
         });
 
-        return createRoteiroPromise;
+        return saveRoteiroPromise;
     }
 
     this.deleteRoteiro = function (deletedRoteiroId) {
-        var deleteRoteiroPromise = $http.delete(config.rootUrl + '/roteiro/delete/' + deletedRoteiroId);
+        var deleteRoteiroPromise = $http.delete(config.rootUrl + '/roteiros/' + deletedRoteiroId);
 
         deleteRoteiroPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);

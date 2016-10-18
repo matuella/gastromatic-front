@@ -18,10 +18,10 @@ module.exports = function ($scope, RoteiroService) {
         }
     });
 
-    $scope.addRoteiro = function(novoRoteiro){
-        jsogRoteiro = jsog.encode(novoRoteiro);
+    $scope.addRoteiro = function(newRoteiro){
+        jsogRoteiro = jsog.encode(newRoteiro);
 
-        RoteiroService.createRoteiro(jsogRoteiro).then(function (response) {
+        RoteiroService.saveRoteiro(jsogRoteiro).then(function (response) {
             if(response.status == 200){
                 $scope.roteiros.push(jsog.decode(response.data)); //Isso não vai dar problema de inconsistência por n ter o id?
             } else{

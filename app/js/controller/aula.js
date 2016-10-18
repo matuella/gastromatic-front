@@ -10,10 +10,10 @@ module.exports = function ($scope, AulaService) {
         }
     });
 
-    $scope.addAula = function(novaAula){
-        jsogAula = jsog.encode(novaAula);
+    $scope.addAula = function(newAula){
+        jsogAula = jsog.encode(newAula);
 
-        AulaService.createAula(jsogAula).then(function (response) {
+        AulaService.saveAula(jsogAula).then(function (response) {
             if(response.status == 200){
                 $scope.aulas.push(jsog.decode(response.data)); //Isso não vai dar problema de inconsistência por n ter o id?
             } else{

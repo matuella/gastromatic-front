@@ -10,10 +10,10 @@ module.exports = function ($scope, CursoService) {
         }
     });
 
-    $scope.addCurso = function(novoCurso){
-        jsogCurso = jsog.encode(novoCurso);
+    $scope.addCurso = function(newCurso){
+        jsogCurso = jsog.encode(newCurso);
 
-        CursoService.createCurso(jsogCurso).then(function (response) {
+        CursoService.saveCurso(jsogCurso).then(function (response) {
             if(response.status == 200){
                 $scope.cursos.push(jsog.decode(response.data));
             } else{

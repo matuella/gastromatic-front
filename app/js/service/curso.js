@@ -1,7 +1,7 @@
 module.exports = function ($http, $log, config) {
 
     this.listCursos = function () {
-        var listCursosPromise = $http.get(config.rootUrl + '/curso/list');
+        var listCursosPromise = $http.get(config.rootUrl + '/cursos');
 
         listCursosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -11,7 +11,7 @@ module.exports = function ($http, $log, config) {
     }
 
     this.getCurso = function (cursoId) {
-        var getCursoPromise = $http.get(config.rootUrl + '/curso/find/' + cursoId);
+        var getCursoPromise = $http.get(config.rootUrl + '/cursos/' + cursoId);
 
         getCursoPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -20,18 +20,18 @@ module.exports = function ($http, $log, config) {
         return getCursoPromise;
     }
 
-    this.createCurso = function (newCurso) {
-        var createCursoPromise = $http.post(config.rootUrl + '/curso/add', newCurso);
+    this.saveCurso = function (newCurso) {
+        var saveCursoPromise = $http.post(config.rootUrl + '/cursos', newCurso);
 
-        createCursoPromise.error(function (data, status, headers, config) {
+        saveCursoPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
         });
 
-        return createCursoPromise;
+        return saveCursoPromise;
     }
 
     this.deleteCurso = function (deletedCursoId) {
-        var deleteCursoPromise = $http.delete(config.rootUrl + '/curso/delete/' + deletedCursoId);
+        var deleteCursoPromise = $http.delete(config.rootUrl + '/cursos/' + deletedCursoId);
 
         deleteCursoPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);

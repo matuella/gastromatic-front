@@ -1,7 +1,7 @@
 module.exports = function ($http, $log, config) {
 
     this.listAulas = function () {
-        var listAulasPromise = $http.get(config.rootUrl + '/aula/list');
+        var listAulasPromise = $http.get(config.rootUrl + '/aulas');
 
         listAulasPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -10,18 +10,28 @@ module.exports = function ($http, $log, config) {
         return listAulasPromise;
     }
 
-    this.createAula = function (newAula) {
-        var createAulaPromise = $http.post(config.rootUrl + '/aula/add', newAula);
+	this.getAula = function (aulaId) {
+        var getAulaPromise = $http.get(config.rootUrl + '/aulas/' + aulaId);
 
-        createAulaPromise.error(function (data, status, headers, config) {
+        getAulaPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
         });
 
-        return createAulaPromise;
+        return getAulaPromise;
+    }
+	
+    this.saveAula = function (newAula) {
+        var saveAulaPromise = $http.post(config.rootUrl + '/aulas', newAula);
+
+        saveAulaPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return saveAulaPromise;
     }
 
     this.deleteAula = function (deletedAulaId) {
-        var deleteAulaPromise = $http.delete(config.rootUrl + '/aula/delete/' + deletedAulaId);
+        var deleteAulaPromise = $http.delete(config.rootUrl + '/aulas/' + deletedAulaId);
 
         deleteAulaPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
