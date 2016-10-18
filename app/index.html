@@ -6,11 +6,11 @@
         <link rel="stylesheet" href="css/base.css">
     </head>
     <body ng-app="gastromaticApp" class="background">
-
-        <div ng-include="'templates/header.html'"></div>
-        <div ng-view></div>
-        <div ng-include="'templates/footer.html'"></div>
-
+        <div class="wrapper-footer">
+            <div ng-include="'templates/header.html'"></div>
+            <div ng-view class="actual-view"></div>
+            <div ng-include="'templates/footer.html'"></div>
+        </div>
         <script src="dist/app.js" type="text/javascript"></script>
     </body>
 </html>

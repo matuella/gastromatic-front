@@ -6,16 +6,18 @@
     <form>
         <div class="small-offset-4 small-4 columns end">
             <label>Curso
-                    <select ng-change="listarRoteirosVinculados()" ng-options="curso as curso.nome for curso in cursosDisponiveis track by curso.nome" ng-model="cursoSelecionado">
-                    </select>
+                <select ng-options="curso as curso.nome for curso in cursosDisponiveis track by curso.nome"
+                        ng-model="cursoSelecionado">
+                </select>
             </label>
         </div>
         <div class="small-offset-4 small-4 columns end">
             <label>Roteiro
-                <select ng-options="roteiro as roteiro.nome for roteiro in cursoSelecionado.roteiros track by roteiro.nome" ng-model="roteiroSelecionado">
+                <select ng-options="roteiro as roteiro.nome for roteiro in cursoSelecionado.roteiros track by roteiro.nome"
+                        ng-model="roteiroSelecionado">
                 </select>
             </label>
-            </div>
+        </div>
         <div class="small-offset-2 small-8 columns end">
             <table class="table table-hover">
                 <thead>
@@ -26,8 +28,25 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="aula in roteiroSelecionado.aulas">
-                    <!--<td><input type="checkbox" ng-change="changeValue(aula)"/></td>-->
+                    <td><input type="checkbox"/></td>
+                    <!--ng-change="changeValue(aula)"-->
                     <td>{{aula.nome}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="small-offset-2 small-8 columns end">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Insumo</th>
+                    <th>Quantidade</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="infoInsumo in insumosFiltrados">
+                    <td>{{infoInsumo.insumo.nome}}</td>
+                    <td>{{infoInsumo.quantidade}}</td>
                 </tr>
                 </tbody>
             </table>

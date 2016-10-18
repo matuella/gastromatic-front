@@ -9,5 +9,4 @@ module.exports = function ($http, $log, config) {
 
         return listCursosPromise;
     }
-
 }
