@@ -1,13 +1,15 @@
 var angular = require('angular');
 require('angular-route');
 require('angular-resource');
+require('angular-foundation-6');
 
-var app = angular.module('gastromaticApp', ['ngRoute']);
+var app = angular.module('gastromaticApp', ['ngRoute', 'mm.foundation']);
 
 app.value("config", {
     rootUrl: "http://localhost:8080/gastromatic"
 });
 
+require('./foundation');
 require('./service');
 require('./controller');
 

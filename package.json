@@ -19,6 +19,7 @@
   "homepage": "https://github.com/matuella/gastromatic-front#readme",
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-foundation-6": "^0.10.13",
     "angular-resource": "^1.5.8",
     "angular-route": "^1.5.8",
     "express": "^4.14.0",

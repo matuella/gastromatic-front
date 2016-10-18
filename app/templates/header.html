@@ -1,15 +1,33 @@
 <!-- Navheader -->
-<div class="expanded row">
-    <ul class="dropdown menu" data-dropdown-menu>
-        <li><a href="#">Gerenciar</a>
+<div class="expanded row" ng-controller="NavbarController">
+    <ul class="dropdown menu" dropdown-menu>
+        <li>
+            <a tabindex="0">Gerenciar</a>
             <ul class="menu">
-                <li><a href="#/curso">Cursos</a></li>
-                <li><a href="#/roteiro">Roteiros</a></li>
-                <li><a href="#/aula">Aulas</a></li>
-                <li><a href="#/receita">Receitas</a></li>
-                <li><a href="#/insumo">Insumos</a></li>
-                <li><a href="#/requisicao">Requisições</a></li>
-            </ul></li>
+                <li>
+                    <a href="#">Grupo 1</a>
+                    <ul class="menu">
+                        <li><a href="#/curso">Cursos</a></li>
+                        <li><a href="#/roteiro">Roteiros</a></li>
+                        <li><a href="#/aula">Aulas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Grupo 2</a>
+                    <ul class="menu">
+                        <li><a href="#/receita">Receitas</a></li>
+                        <li><a href="#/insumo">Insumos</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Grupo 3</a>
+                    <ul class="menu">
+                        <li><a href="#/requisicao">Requisições</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
         <li><a href="#">Menu rápido</a></li>
+        <li><a href="#">Configurações</a></li>
     </ul>
 </div>
