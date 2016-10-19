@@ -14,7 +14,7 @@
         <div class="small-offset-4 small-4 columns end">
             <label>Roteiro
                 <select ng-options="roteiro as roteiro.nome for roteiro in cursoSelecionado.roteiros track by roteiro.nome"
-                        ng-model="roteiroSelecionado">
+                        ng-model="roteiroSelecionado" ng-change="changedRoteiro(roteiro)">
                 </select>
             </label>
         </div>
@@ -28,8 +28,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="aula in roteiroSelecionado.aulas">
-                    <td><input type="checkbox"/></td>
-                    <!--ng-change="changeValue(aula)"-->
+                    <td><input ng-model="aula.selected" ng-change="geraInsumos()" type="checkbox"/></td>
                     <td>{{aula.nome}}</td>
                 </tr>
                 </tbody>
@@ -41,12 +40,16 @@
                 <tr>
                     <th>Insumo</th>
                     <th>Quantidade</th>
+                    <th>Medida</th>
+                    <th>Observação</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="infoInsumo in insumosFiltrados">
                     <td>{{infoInsumo.insumo.nome}}</td>
-                    <td>{{infoInsumo.quantidade}}</td>
+                    <td><input type="text" ng-model="infoInsumo.quantidade"></td>
+                    <td>{{infoInsumo.medida}}</td>
+                    <td><input type="text" ng-model="infoInsumo.observacoes"></td>
                 </tr>
                 </tbody>
             </table>

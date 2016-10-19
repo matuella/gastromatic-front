@@ -13,28 +13,44 @@ module.exports = function ($scope, RequisicaoService) {
         }
     });
 
-    $scope.$watch('roteiroSelecionado', function () {
+    $scope.changedRoteiro = function () {
+        var roteiro = $scope.roteiroSelecionado;
+
+        for (var i = 0; i < roteiro.aulas.length; ++i) {
+            roteiro.aulas[i].selected = true;
+        }
+
+        $scope.geraInsumos();
+    }
+
+    $scope.geraInsumos = function () {
         var insumosSelecionados = [];
         var roteiro = $scope.roteiroSelecionado;
 
         if (roteiro != null) {
             for (var i = 0; i < roteiro.aulas.length; ++i) {
-                var receitasDaAula = roteiro.aulas[i].receitas;
-                for (var j = 0; j < receitasDaAula.length; ++j) {
-                    var insumosDaReceita = receitasDaAula[j].insumos;
-                    for (var k = 0; k < insumosDaReceita.length; ++k) {
-                        var novoInsumo = {
-                            "insumo": insumosDaReceita[k],
-                            "quantidade": 1
-                        };
-                        insumosSelecionados.push(novoInsumo);
+                if (roteiro.aulas[i].selected) {
+                    var receitasDaAula = roteiro.aulas[i].receitas;
+
+                    for (var j = 0; j < receitasDaAula.length; ++j) {
+                        var detalhesReceita = receitasDaAula[j].detalhesReceita;
+
+                        for (var k = 0; k < detalhesReceita.length; ++k) {
+                            var novoDetalhe = {
+                                "insumo": detalhesReceita[k].insumo,
+                                "quantidade": detalhesReceita[k].quantidadeInsumo,
+                                "medida": "TBI"
+                            };
+
+                            insumosSelecionados.push(novoDetalhe);
+                        }
                     }
                 }
             }
         }
 
         $scope.insumosFiltrados = insumosSelecionados;
-    });
+    }
 
     // $scope.checkAll = function() {
     //     $scope.user.roles = angular.copy($scope.roles);

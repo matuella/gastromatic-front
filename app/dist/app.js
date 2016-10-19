@@ -36,7 +36,7 @@ app.config(function ($routeProvider) {
             redirectTo: '/curso'
         });
 });
-},{"./controller":4,"./foundation":7,"./service":10,"angular":19,"angular-foundation-6":13,"angular-resource":15,"angular-route":17}],2:[function(require,module,exports){
+},{"./controller":4,"./foundation":7,"./service":10,"angular":20,"angular-foundation-6":14,"angular-resource":16,"angular-route":18}],2:[function(require,module,exports){
 var jsog = require('jsog');
 
 module.exports = function ($scope, AulaService) {
@@ -49,10 +49,10 @@ module.exports = function ($scope, AulaService) {
         }
     });
 
-    $scope.addAula = function(novaAula){
-        jsogAula = jsog.encode(novaAula);
+    $scope.addAula = function(newAula){
+        jsogAula = jsog.encode(newAula);
 
-        AulaService.createAula(jsogAula).then(function (response) {
+        AulaService.saveAula(jsogAula).then(function (response) {
             if(response.status == 200){
                 $scope.aulas.push(jsog.decode(response.data)); //Isso não vai dar problema de inconsistência por n ter o id?
             } else{
@@ -62,7 +62,7 @@ module.exports = function ($scope, AulaService) {
         });
     }
 }
-},{"jsog":20}],3:[function(require,module,exports){
+},{"jsog":21}],3:[function(require,module,exports){
 var jsog = require('jsog');
 
 module.exports = function ($scope, CursoService) {
@@ -75,10 +75,10 @@ module.exports = function ($scope, CursoService) {
         }
     });
 
-    $scope.addCurso = function(novoCurso){
-        jsogCurso = jsog.encode(novoCurso);
+    $scope.addCurso = function(newCurso){
+        jsogCurso = jsog.encode(newCurso);
 
-        CursoService.createCurso(jsogCurso).then(function (response) {
+        CursoService.saveCurso(jsogCurso).then(function (response) {
             if(response.status == 200){
                 $scope.cursos.push(jsog.decode(response.data));
             } else{
@@ -88,14 +88,14 @@ module.exports = function ($scope, CursoService) {
         });
     }
 }
-},{"jsog":20}],4:[function(require,module,exports){
+},{"jsog":21}],4:[function(require,module,exports){
 var app = require('angular').module('gastromaticApp');
 
 app.controller('CursoController', require('./curso'));
 app.controller('RoteiroController', require('./roteiro'));
 app.controller('AulaController', require('./aula'));
 app.controller('RequisicaoController', require('./requisicao'));
-},{"./aula":2,"./curso":3,"./requisicao":5,"./roteiro":6,"angular":19}],5:[function(require,module,exports){
+},{"./aula":2,"./curso":3,"./requisicao":5,"./roteiro":6,"angular":20}],5:[function(require,module,exports){
 /**
  * Created by guilh on 17/10/2016.
  */
@@ -111,35 +111,51 @@ module.exports = function ($scope, RequisicaoService) {
         }
     });
 
-    $scope.$watch('roteiroSelecionado', function () {
+    $scope.changedRoteiro = function () {
+        var roteiro = $scope.roteiroSelecionado;
+
+        for (var i = 0; i < roteiro.aulas.length; ++i) {
+            roteiro.aulas[i].selected = true;
+        }
+
+        $scope.geraInsumos();
+    }
+
+    $scope.geraInsumos = function () {
         var insumosSelecionados = [];
         var roteiro = $scope.roteiroSelecionado;
 
         if (roteiro != null) {
             for (var i = 0; i < roteiro.aulas.length; ++i) {
-                var receitasDaAula = roteiro.aulas[i].receitas;
-                for (var j = 0; j < receitasDaAula.length; ++j) {
-                    var insumosDaReceita = receitasDaAula[j].insumos;
-                    for (var k = 0; k < insumosDaReceita.length; ++k) {
-                        var novoInsumo = {
-                            "insumo": insumosDaReceita[k],
-                            "quantidade": 1
-                        };
-                        insumosSelecionados.push(novoInsumo);
+                if (roteiro.aulas[i].selected) {
+                    var receitasDaAula = roteiro.aulas[i].receitas;
+
+                    for (var j = 0; j < receitasDaAula.length; ++j) {
+                        var detalhesReceita = receitasDaAula[j].detalhesReceita;
+
+                        for (var k = 0; k < detalhesReceita.length; ++k) {
+                            var novoDetalhe = {
+                                "insumo": detalhesReceita[k].insumo,
+                                "quantidade": detalhesReceita[k].quantidadeInsumo,
+                                "medida": "TBI"
+                            };
+
+                            insumosSelecionados.push(novoDetalhe);
+                        }
                     }
                 }
             }
         }
 
         $scope.insumosFiltrados = insumosSelecionados;
-    });
+    }
 
     // $scope.checkAll = function() {
     //     $scope.user.roles = angular.copy($scope.roles);
     // };
     // https://vitalets.github.io/checklist-model/
 }
-},{"jsog":20}],6:[function(require,module,exports){
+},{"jsog":21}],6:[function(require,module,exports){
 var jsog = require('jsog');
 
 module.exports = function ($scope, RoteiroService) {
@@ -160,10 +176,10 @@ module.exports = function ($scope, RoteiroService) {
         }
     });
 
-    $scope.addRoteiro = function(novoRoteiro){
-        jsogRoteiro = jsog.encode(novoRoteiro);
+    $scope.addRoteiro = function(newRoteiro){
+        jsogRoteiro = jsog.encode(newRoteiro);
 
-        RoteiroService.createRoteiro(jsogRoteiro).then(function (response) {
+        RoteiroService.saveRoteiro(jsogRoteiro).then(function (response) {
             if(response.status == 200){
                 $scope.roteiros.push(jsog.decode(response.data)); //Isso não vai dar problema de inconsistência por n ter o id?
             } else{
@@ -173,7 +189,7 @@ module.exports = function ($scope, RoteiroService) {
         });
     }
 }
-},{"jsog":20}],7:[function(require,module,exports){
+},{"jsog":21}],7:[function(require,module,exports){
 /**
  * Created by guilh on 17/10/2016.
  */
@@ -182,11 +198,11 @@ var app = require('angular').module('gastromaticApp');
 app.controller('NavbarController', function ($scope) {
 
 });
-},{"angular":19}],8:[function(require,module,exports){
+},{"angular":20}],8:[function(require,module,exports){
 module.exports = function ($http, $log, config) {
 
     this.listAulas = function () {
-        var listAulasPromise = $http.get(config.rootUrl + '/aula/list');
+        var listAulasPromise = $http.get(config.rootUrl + '/aulas');
 
         listAulasPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -195,18 +211,28 @@ module.exports = function ($http, $log, config) {
         return listAulasPromise;
     }
 
-    this.createAula = function (newAula) {
-        var createAulaPromise = $http.post(config.rootUrl + '/aula/add', newAula);
+	this.getAula = function (aulaId) {
+        var getAulaPromise = $http.get(config.rootUrl + '/aulas/' + aulaId);
 
-        createAulaPromise.error(function (data, status, headers, config) {
+        getAulaPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
         });
 
-        return createAulaPromise;
+        return getAulaPromise;
+    }
+	
+    this.saveAula = function (newAula) {
+        var saveAulaPromise = $http.post(config.rootUrl + '/aulas', newAula);
+
+        saveAulaPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return saveAulaPromise;
     }
 
     this.deleteAula = function (deletedAulaId) {
-        var deleteAulaPromise = $http.delete(config.rootUrl + '/aula/delete/' + deletedAulaId);
+        var deleteAulaPromise = $http.delete(config.rootUrl + '/aulas/' + deletedAulaId);
 
         deleteAulaPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -220,7 +246,7 @@ module.exports = function ($http, $log, config) {
 module.exports = function ($http, $log, config) {
 
     this.listCursos = function () {
-        var listCursosPromise = $http.get(config.rootUrl + '/curso/list');
+        var listCursosPromise = $http.get(config.rootUrl + '/cursos');
 
         listCursosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -230,7 +256,7 @@ module.exports = function ($http, $log, config) {
     }
 
     this.getCurso = function (cursoId) {
-        var getCursoPromise = $http.get(config.rootUrl + '/curso/find/' + cursoId);
+        var getCursoPromise = $http.get(config.rootUrl + '/cursos/' + cursoId);
 
         getCursoPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -239,18 +265,18 @@ module.exports = function ($http, $log, config) {
         return getCursoPromise;
     }
 
-    this.createCurso = function (newCurso) {
-        var createCursoPromise = $http.post(config.rootUrl + '/curso/add', newCurso);
+    this.saveCurso = function (newCurso) {
+        var saveCursoPromise = $http.post(config.rootUrl + '/cursos', newCurso);
 
-        createCursoPromise.error(function (data, status, headers, config) {
+        saveCursoPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
         });
 
-        return createCursoPromise;
+        return saveCursoPromise;
     }
 
     this.deleteCurso = function (deletedCursoId) {
-        var deleteCursoPromise = $http.delete(config.rootUrl + '/curso/delete/' + deletedCursoId);
+        var deleteCursoPromise = $http.delete(config.rootUrl + '/cursos/' + deletedCursoId);
 
         deleteCursoPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -266,12 +292,55 @@ var app = require('angular').module('gastromaticApp');
 app.service('CursoService', require('./curso'));
 app.service('RoteiroService', require('./roteiro'));
 app.service('AulaService', require('./aula'));
+app.service('ReceitaService', require('./receita'));
 app.service('RequisicaoService', require('./requisicao'));
-},{"./aula":8,"./curso":9,"./requisicao":11,"./roteiro":12,"angular":19}],11:[function(require,module,exports){
+},{"./aula":8,"./curso":9,"./receita":11,"./requisicao":12,"./roteiro":13,"angular":20}],11:[function(require,module,exports){
+module.exports = function ($http, $log, config) {
+
+    this.listReceitas = function () {
+        var listReceitasPromise = $http.get(config.rootUrl + '/receitas');
+
+        listReceitasPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return listReceitasPromise;
+    }
+
+    this.getReceita = function (receitaId) {
+        var getReceitaPromise = $http.get(config.rootUrl + '/receitas/' + receitaId);
+
+
+
+        return getReceitaPromise;
+    }
+
+    this.saveReceita = function (newReceita) {
+        var saveReceitaPromise = $http.post(config.rootUrl + '/receitas', newReceita);
+
+        saveReceitaPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return saveReceitaPromise;
+    }
+
+    this.deleteReceita = function (deletedReceitaId) {
+        var deleteReceitaPromise = $http.delete(config.rootUrl + '/receitas/' + deletedReceitaId);
+
+        deleteReceitaPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
+
+        return deleteReceitaPromise;
+    }
+}
+
+},{}],12:[function(require,module,exports){
 module.exports = function ($http, $log, config) {
 
     this.listCursos = function () {
-        var listCursosPromise = $http.get(config.rootUrl + '/curso/list');
+        var listCursosPromise = $http.get(config.rootUrl + '/cursos');
 
         listCursosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -281,11 +350,11 @@ module.exports = function ($http, $log, config) {
     }
 }
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = function ($http, $log, config) {
 
     this.listRoteiros = function () {
-        var listRoteirosPromise = $http.get(config.rootUrl + '/roteiro/list');
+        var listRoteirosPromise = $http.get(config.rootUrl + '/roteiros');
 
         listRoteirosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -295,7 +364,7 @@ module.exports = function ($http, $log, config) {
     }
 
     this.listCursos = function () {
-        var listCursosPromise = $http.get(config.rootUrl + '/curso/list');
+        var listCursosPromise = $http.get(config.rootUrl + '/cursos');
 
         listCursosPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -304,18 +373,18 @@ module.exports = function ($http, $log, config) {
         return listCursosPromise;
     }
 
-    this.createRoteiro = function (newRoteiro) {
-        var createRoteiroPromise = $http.post(config.rootUrl + '/roteiro/add', newRoteiro);
+    this.saveRoteiro = function (newRoteiro) {
+        var saveRoteiroPromise = $http.post(config.rootUrl + '/roteiros/', newRoteiro);
 
-        createRoteiroPromise.error(function (data, status, headers, config) {
+        saveRoteiroPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
         });
 
-        return createRoteiroPromise;
+        return saveRoteiroPromise;
     }
 
     this.deleteRoteiro = function (deletedRoteiroId) {
-        var deleteRoteiroPromise = $http.delete(config.rootUrl + '/roteiro/delete/' + deletedRoteiroId);
+        var deleteRoteiroPromise = $http.delete(config.rootUrl + '/roteiros/' + deletedRoteiroId);
 
         deleteRoteiroPromise.error(function (data, status, headers, config) {
             $log.warn(data, status, headers, config);
@@ -326,7 +395,7 @@ module.exports = function ($http, $log, config) {
 
 }
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 AccordionController.$inject = ['$scope', '$attrs', 'accordionConfig'];
@@ -2859,7 +2928,7 @@ angular.module('mm.foundation.tooltip', ['mm.foundation.position', 'mm.foundatio
     }]);
 })();
 angular.module("mm.foundation", ["mm.foundation.accordion", "mm.foundation.alert", "mm.foundation.bindHtml", "mm.foundation.buttons", "mm.foundation.dropdownMenu", "mm.foundation.dropdownToggle", "mm.foundation.mediaQueries", "mm.foundation.modal", "mm.foundation.offcanvas", "mm.foundation.pagination", "mm.foundation.position", "mm.foundation.progressbar", "mm.foundation.rating", "mm.foundation.tabs", "mm.foundation.tooltip"]);
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -3724,11 +3793,11 @@ angular.module('ngResource', ['ng']).
 
 })(window, window.angular);
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 require('./angular-resource');
 module.exports = 'ngResource';
 
-},{"./angular-resource":14}],16:[function(require,module,exports){
+},{"./angular-resource":15}],17:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -4799,11 +4868,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":16}],18:[function(require,module,exports){
+},{"./angular-route":17}],19:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -36572,11 +36641,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":18}],20:[function(require,module,exports){
+},{"./angular":19}],21:[function(require,module,exports){
 // Generated by CoffeeScript 1.9.1
 (function() {
   var JSOG, JSOG_OBJECT_ID, hasCustomJsonificaiton, isArray, nextId;
