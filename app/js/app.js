@@ -7,7 +7,7 @@ var app = angular.module('gastromaticApp', ['ngRoute', 'mm.foundation']);
 
 app.value("config", {
     // rootUrl: "http://localhost:8080/gastromatic"
-    rootUrl: "https://gastromatic.herokuapp.com/gastromatic"
+    rootUrl: "https://gastromatic.herokuapp.com"
 });
 
 require('./foundation');
