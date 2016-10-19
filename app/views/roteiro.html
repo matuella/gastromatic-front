@@ -1,15 +1,15 @@
 <div class="expanded row">
-    <div class="small-12 columns"
-         style="border: 5px solid black; padding: 0px; margin: 0px; background: green;">
-        <h2 class="text-center">Roteiros</h2>
+    <div class="small-12 columns">
+        <p class="text-center main-title">Roteiros</p>
     </div>
     <form>
         <div class="small-12 medium-6 columns two-column-padding">
-            <h2 class="text-center">Cadastro</h2>
+            <p class="text-center secondary-title">Cadastro</p>
             Nome <input type="text" ng-model="roteiro.nome"><br>
             Detalhes <textarea type="text" rows="5" ng-model="roteiro.detalhes"></textarea>
             <label>Curso
-                <select ng-options="curso as curso.nome for curso in cursosDisponiveis track by curso.nome" ng-model="roteiro.curso">
+                <select ng-options="curso as curso.nome for curso in cursosDisponiveis track by curso.nome"
+                        ng-model="roteiro.curso">
                 </select>
             </label>
             <button type="button" class="success button expanded"
@@ -17,8 +17,8 @@
             </button>
         </div>
         <div class="small-12 medium-6 columns two-column-padding">
-            <h2 class="text-center">Pesquisar</h2>
-            Nome <input type="text" ng-model="pesquisaRoteiro"><br>
+            <p class="text-center secondary-title">Pesquisar</p>
+            Nome <input type="text" ng-model="pesquisaRoteiro.nome"><br>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -28,7 +28,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="rot in roteiros">
+                <tr ng-repeat="rot in roteiros | filter: pesquisaRoteiro">
                     <td>{{rot.nome}}</td>
                     <td>{{rot.detalhes}}</td>
                     <td>{{rot.curso.nome}}</td>

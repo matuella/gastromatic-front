@@ -13,7 +13,9 @@ module.exports = function ($http, $log, config) {
     this.getReceita = function (receitaId) {
         var getReceitaPromise = $http.get(config.rootUrl + '/receitas/' + receitaId);
 
-
+        getReceitaPromise.error(function (data, status, headers, config) {
+            $log.warn(data, status, headers, config);
+        });
 
         return getReceitaPromise;
     }

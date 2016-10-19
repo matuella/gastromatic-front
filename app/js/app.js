@@ -31,6 +31,10 @@ app.config(function ($routeProvider) {
             templateUrl: 'views/aula.html',
             controller: 'AulaController'
         })
+        .when('/receita', {
+            templateUrl: 'views/receita.html',
+            controller: 'ReceitaController'
+        })
         .otherwise({
             redirectTo: '/curso'
         });

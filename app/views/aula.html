@@ -1,11 +1,10 @@
 <div class="expanded row">
-    <div class="small-12 columns"
-         style="border: 5px solid black; padding: 0px; margin: 0px; background: green;">
-        <h2 class="text-center main-title">Aulas</h2>
+    <div class="small-12 columns">
+        <p class="text-center main-title">Aulas</p>
     </div>
     <form>
         <div class="small-12 medium-6 columns two-column-padding">
-            <h2 class="text-center secondary-title">Cadastro</h2>
+            <p class="text-center secondary-title">Cadastro</p>
             Nome <input type="text" ng-model="aula.nome"><br>
             Detalhes <textarea type="text" rows="5" ng-model="aula.detalhes"></textarea>
             <button type="button" class="success button expanded"
@@ -13,22 +12,22 @@
             </button>
         </div>
         <div class="small-12 medium-6 columns two-column-padding">
-            <h2 class="text-center secondary-title">Pesquisar</h2>
-            Nome <input type="text" ng-model="pesquisaCurso"><br>
+            <p class="text-center secondary-title">Pesquisar</p>
+            Nome <input type="text" ng-model="pesquisaAula.nome"><br>
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Detalhes</th>
-                        <th>Etc</th>
-                    </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th>Detalhes</th>
+                    <th>Etc</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="aula in aulas">
-                        <td>{{aula.nome}}</td>
-                        <td>{{aula.detalhes}}</td>
-                        <td>Icone de ETC</td>
-                    </tr>
+                <tr ng-repeat="aula in aulas | filter: pesquisaAula">
+                    <td>{{aula.nome}}</td>
+                    <td>{{aula.detalhes}}</td>
+                    <td>Icone de ETC</td>
+                </tr>
                 </tbody>
             </table>
         </div>

@@ -16,16 +16,16 @@
             Nome <input type="text" ng-model="pesquisaCurso.nome"><br>
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Detalhes</th>
-                    </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th>Detalhes</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="cur in cursos | filter: pesquisaCurso">
-                        <td>{{cur.nome}}</td>
-                        <td>{{cur.detalhes}}</td>
-                    </tr>
+                <tr ng-repeat="cur in cursos | filter: pesquisaCurso">
+                    <td>{{cur.nome}}</td>
+                    <td>{{cur.detalhes}}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
