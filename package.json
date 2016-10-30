@@ -1,37 +1,23 @@
 {
-  "name": "gastromatic-front",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/matuella/gastromatic-front.git"
-  },
-  "author": "Guilherme Matuella",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/matuella/gastromatic-front/issues"
-  },
-  "homepage": "https://github.com/matuella/gastromatic-front#readme",
-  "dependencies": {
-    "angular": "^1.5.8",
-    "angular-foundation-6": "^0.10.13",
-    "angular-resource": "^1.5.8",
-    "angular-route": "^1.5.8",
-    "express": "^4.14.0",
-    "foundation-sites": "^6.2.3",
-    "jsog": "^1.0.7"
-  },
+  "name": "rdash-angular",
+  "version": "0.0.1",
+  "author": "Elliot Hesp",
+  "contributors": [
+    "Leonel Samayoa <leonel.e.samayoa@gmail.com> (http://gobliip.com)",
+    "Ricardo Pascua <rdpascua@outlook.com>"
+  ],
   "devDependencies": {
-    "browserify": "^13.1.0",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-minify-css": "^1.2.4",
-    "gulp-uglify": "^2.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "bower": "^1.3.9",
+    "gulp": "~3.9.0",
+    "gulp-concat": "^2.4.1",
+    "gulp-connect": "^2.0.6",
+    "gulp-cssnano": "^2.1.0",
+    "gulp-htmlmin": "^1.3.0",
+    "gulp-less": "^3.0.5",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.0.1",
+    "gulp-usemin": "^0.3.7",
+    "gulp-watch": "^4.3.5",
+    "gulp-wrap": "^0.11.0"
   }
 }
