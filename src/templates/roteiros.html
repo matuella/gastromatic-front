@@ -1,0 +1,69 @@
+<div class="row" ng-controller="RoteiroController">
+    <div class="col-md-6 col-sm-12">
+        <rd-widget>
+            <rd-widget-header icon="fa-tasks" title="Cadastrar Roteiro">
+            </rd-widget-header>
+            <rd-widget-body classes="medium">
+                <div class="form-group">
+                    <label for="nomeRoteiro">Nome</label>
+                    <input id="nomeRoteiro" type="text" class="form-control margin-bottom-10" placeholder="Nome do curso"
+                           ng-model="roteiro.nome">
+                </div>
+                <div class="form-group">
+                    <label for="detalhesRoteiro">Detalhes</label>
+                    <textarea id="detalhesRoteiro" rows="4" class="form-control margin-bottom-10" placeholder="Detalhes do curso"
+                              ng-model="roteiro.detalhes"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="cursoSelecionado">Cursos</label>
+                    <select id="cursoSelecionado" class="form-control margin-bottom-10"
+                            ng-options="curso as curso.nome for curso in cursosDisponiveis track by curso.nome"
+                            ng-model="roteiro.curso">
+                    </select>
+                </div>
+            </rd-widget-body>
+            <rd-widget-footer>
+                <button type="button" class="btn btn-success" ng-click="addRoteiro(roteiro)">Cadastrar
+                </button>
+            </rd-widget-footer>
+        </rd-widget>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <rd-widget>
+            <rd-widget-header icon="fa-tasks" title="Roteiros cadastrados">
+                <input type="text" class="form-control" placeholder="Nome do roteiro"
+                       ng-model="pesquisaRoteiro.nome">
+            </rd-widget-header>
+            <rd-widget-body classes="medium no-padding">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Detalhes</th>
+                            <th>Curso</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="rot in roteiros | filter: pesquisaRoteiro">
+                            <td>{{rot.nome}}</td>
+                            <td>{{rot.detalhes}}</td>
+                            <td>{{rot.curso.nome}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </rd-widget-body>
+            <rd-widget-footer>
+                <ul class="pagination pagination-sm pull-right">
+                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </rd-widget-footer>
+        </rd-widget>
+    </div>
+</div>

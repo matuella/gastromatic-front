@@ -1,32 +1,27 @@
-<div class="row" ng-controller="CursoController">
+<div class="row" ng-controller="ReceitaController">
     <div class="col-md-6 col-sm-12">
         <rd-widget>
-            <rd-widget-header icon="fa-tasks" title="Cadastrar Curso">
+            <rd-widget-header icon="fa-tasks" title="Cadastrar Receita">
             </rd-widget-header>
             <rd-widget-body classes="medium">
                 <div class="form-group">
-                    <label for="nomeCurso">Nome</label>
-                    <input id="nomeCurso" type="text" class="form-control margin-bottom-10" placeholder="Nome do curso"
-                           ng-model="curso.nome">
-                </div>
-                <div class="form-group">
-                    <label for="detalhesCurso">Detalhes</label>
-                    <textarea id="detalhesCurso" rows="4" class="form-control margin-bottom-10"
-                              placeholder="Detalhes do curso"
-                              ng-model="curso.detalhes"></textarea>
+                    <label for="nomeReceita">Nome</label>
+                    <input id="nomeReceita" type="text" class="form-control margin-bottom-10"
+                           placeholder="Nome da receita"
+                           ng-model="receita.nome">
                 </div>
             </rd-widget-body>
             <rd-widget-footer>
-                <button type="button" class="btn btn-success" ng-click="addCurso(curso)">Cadastrar
+                <button type="button" class="btn btn-success" ng-click="addReceita(receita)">Cadastrar
                 </button>
             </rd-widget-footer>
         </rd-widget>
     </div>
     <div class="col-md-6 col-sm-12">
         <rd-widget>
-            <rd-widget-header icon="fa-tasks" title="Cursos cadastrados">
-                <input type="text" class="form-control" placeholder="Nome do curso"
-                       ng-model="pesquisaCurso.nome">
+            <rd-widget-header icon="fa-tasks" title="Receitas cadastradas">
+                <input type="text" class="form-control" placeholder="Nome da receita"
+                       ng-model="pesquisaReceita.nome">
             </rd-widget-header>
             <rd-widget-body classes="medium no-padding">
                 <div class="table-responsive">
@@ -34,13 +29,11 @@
                         <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Detalhes</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="cur in cursos | filter: pesquisaCurso">
-                            <td>{{cur.nome}}</td>
-                            <td>{{cur.detalhes}}</td>
+                        <tr ng-repeat="rec in receitas | filter: pesquisaReceita">
+                            <td>{{rec.nome}}</td>
                         </tr>
                         </tbody>
                     </table>

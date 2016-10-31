@@ -1,32 +1,32 @@
-<div class="row" ng-controller="CursoController">
+<div class="row" ng-controller="AulaController">
     <div class="col-md-6 col-sm-12">
         <rd-widget>
-            <rd-widget-header icon="fa-tasks" title="Cadastrar Curso">
+            <rd-widget-header icon="fa-tasks" title="Cadastrar Aula">
             </rd-widget-header>
             <rd-widget-body classes="medium">
                 <div class="form-group">
-                    <label for="nomeCurso">Nome</label>
-                    <input id="nomeCurso" type="text" class="form-control margin-bottom-10" placeholder="Nome do curso"
-                           ng-model="curso.nome">
+                    <label for="nomeAula">Nome</label>
+                    <input id="nomeAula" type="text" class="form-control margin-bottom-10" placeholder="Nome da aula"
+                           ng-model="aula.nome">
                 </div>
                 <div class="form-group">
-                    <label for="detalhesCurso">Detalhes</label>
-                    <textarea id="detalhesCurso" rows="4" class="form-control margin-bottom-10"
-                              placeholder="Detalhes do curso"
-                              ng-model="curso.detalhes"></textarea>
+                    <label for="detalhesAula">Detalhes</label>
+                    <textarea id="detalhesAula" rows="4" class="form-control margin-bottom-10"
+                              placeholder="Detalhes da aula"
+                              ng-model="aula.detalhes"></textarea>
                 </div>
             </rd-widget-body>
             <rd-widget-footer>
-                <button type="button" class="btn btn-success" ng-click="addCurso(curso)">Cadastrar
+                <button type="button" class="btn btn-success" ng-click="addAula(aula)">Cadastrar
                 </button>
             </rd-widget-footer>
         </rd-widget>
     </div>
     <div class="col-md-6 col-sm-12">
         <rd-widget>
-            <rd-widget-header icon="fa-tasks" title="Cursos cadastrados">
-                <input type="text" class="form-control" placeholder="Nome do curso"
-                       ng-model="pesquisaCurso.nome">
+            <rd-widget-header icon="fa-tasks" title="Aulas cadastrados">
+                <input type="text" class="form-control" placeholder="Nome da Aula"
+                       ng-model="pesquisaAula.nome">
             </rd-widget-header>
             <rd-widget-body classes="medium no-padding">
                 <div class="table-responsive">
@@ -38,9 +38,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="cur in cursos | filter: pesquisaCurso">
-                            <td>{{cur.nome}}</td>
-                            <td>{{cur.detalhes}}</td>
+                        <tr ng-repeat="au in aulas | filter: pesquisaAula">
+                            <td>{{au.nome}}</td>
+                            <td>{{au.detalhes}}</td>
                         </tr>
                         </tbody>
                     </table>
