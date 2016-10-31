@@ -3,7 +3,7 @@
  */
 
 angular
-    .module('RDash')
+    .module('Gastromatic')
     .directive('rdWidgetBody', rdWidgetBody);
 
 function rdWidgetBody() {

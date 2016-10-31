@@ -1,4 +1,4 @@
-angular.module('RDash')
+angular.module('Gastromatic')
     .controller('CursoController', ['$scope', 'CursoService', CursoController]);
 
 function CursoController($scope, CursoService) {

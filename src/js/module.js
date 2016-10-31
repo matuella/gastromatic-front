@@ -1,4 +1,4 @@
-var app = angular.module('RDash', ['ui.bootstrap', 'ui.router', 'ngCookies']);
+var app = angular.module('Gastromatic', ['ui.bootstrap', 'ui.router', 'ngCookies']);
 
 app.value("config", {
     // rootUrl: "http://localhost:8080/gastromatic"

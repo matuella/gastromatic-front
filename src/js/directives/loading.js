@@ -4,7 +4,7 @@
  */
 
 angular
-    .module('RDash')
+    .module('Gastromatic')
     .directive('rdLoading', rdLoading);
 
 function rdLoading() {

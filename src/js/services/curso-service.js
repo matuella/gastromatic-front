@@ -1,4 +1,4 @@
-angular.module('RDash')
+angular.module('Gastromatic')
     .service('CursoService', ['$http', '$log', 'config', CursoService]);
 
 function CursoService($http, $log, config) {
