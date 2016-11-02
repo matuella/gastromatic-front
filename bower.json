@@ -1,17 +1,12 @@
 {
-  "name": "rdash-angular",
+  "name": "gastromatic",
   "version": "0.0.1",
-  "description": "An AngularJS implementation of the responsive dashboard",
-  "homepage": "https://github.com/Ehesp/Responsive-Dashboard",
+  "description": "Front-end part of the final paper project Gastromatic, using the RDash template",
+  "homepage": "https://github.com/matuella/gastromatic-front",
   "authors": [
-    "Elliot Hesp <elliot.hesp@gmail.com>"
-  ],
-  "contributors": [
-    "Ricardo Pascua Jr <rdpascua@outlook.com>",
-    "Leonel Samayoa <leonel.e.samayoa@gmail.com>"
+    "Guilherme C Matuella <guilherme1matuella@gmail.com>"
   ],
   "main": "index.html",
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -32,6 +27,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rdash/rdash-angular"
+    "url": "https://github.com/matuella/gastromatic-front"
   }
 }

@@ -1,14 +1,12 @@
 {
-  "name": "rdash-angular",
+  "name": "gastromatic",
   "version": "0.0.1",
-  "author": "Elliot Hesp",
-  "contributors": [
-    "Leonel Samayoa <leonel.e.samayoa@gmail.com> (http://gobliip.com)",
-    "Ricardo Pascua <rdpascua@outlook.com>"
-  ],
-  "devDependencies": {
+  "author": "Guilherme C Matuella <guilherme1matuella@gmail.com>",
+  "dependencies": {
     "bower": "^1.3.9",
-    "gulp": "~3.9.0",
+    "gulp": "~3.9.0"
+  },
+  "devDependencies": {
     "gulp-concat": "^2.4.1",
     "gulp-connect": "^2.0.6",
     "gulp-cssnano": "^2.1.0",
@@ -19,5 +17,8 @@
     "gulp-usemin": "^0.3.7",
     "gulp-watch": "^4.3.5",
     "gulp-wrap": "^0.11.0"
+  },
+  "scripts": {
+    "heroku-postbuild": "bower install && gulp production"
   }
 }

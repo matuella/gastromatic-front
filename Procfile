@@ -1,1 +1,1 @@
-web: node server.js
+web: node node_modules/bower/lib/bin/bower install

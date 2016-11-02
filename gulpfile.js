@@ -102,6 +102,17 @@ gulp.task('livereload', function() {
 });
 
 /**
+ * Prod server
+ */
+gulp.task('prodserver', function() {
+    connect.server({
+        root: 'dist',
+        port: process.env.PORT || 8888,
+        livereload: false
+    });
+});
+
+/**
  * Gulp tasks
  */
 gulp.task('build', ['usemin', 'build-assets', 'build-custom']);
