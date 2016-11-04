@@ -3,6 +3,9 @@ angular.module('Gastromatic')
 
 function InsumoController($scope, InsumoService) {
 
+    $scope.insumo = {};
+    $scope.pesquisaInsumo = {};
+
     InsumoService.listInsumos().then(function(response) {
         if(response.status == 200){
             $scope.insumos = JSOG.decode(response.data);
@@ -20,7 +23,7 @@ function InsumoController($scope, InsumoService) {
             } else{
                 //Tratar erro com pop-up na tela.
             }
-            delete $scope.insumo;
+            $scope.insumo = {};
         });
     }
 }

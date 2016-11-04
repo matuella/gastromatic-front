@@ -3,6 +3,9 @@ angular.module('Gastromatic')
 
 function AulaController($scope, AulaService) {
 
+    $scope.aula = {};
+    $scope.pesquisaAula = {};
+
     AulaService.listAulas().then(function(response) {
         if(response.status == 200){
             $scope.aulas = JSOG.decode(response.data);
@@ -20,7 +23,7 @@ function AulaController($scope, AulaService) {
             } else{
                 //Tratar erro com pop-up na tela.
             }
-            delete $scope.aula;
+            $scope.aula = {};
         });
     }
 }

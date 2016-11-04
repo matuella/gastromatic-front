@@ -3,6 +3,7 @@ angular.module('Gastromatic')
 
 function RequisicaoController($scope, RequisicaoService, CursoService) {
 
+
     CursoService.listCursos().then(function (response) {
         if (response.status == 200) {
             $scope.cursosDisponiveis = JSOG.decode(response.data);

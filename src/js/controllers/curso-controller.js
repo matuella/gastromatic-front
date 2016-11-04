@@ -3,6 +3,9 @@ angular.module('Gastromatic')
 
 function CursoController($scope, CursoService) {
 
+    $scope.curso = {};
+    $scope.pesquisaCurso = {};
+
     CursoService.listCursos().then(function(response) {
         if(response.status == 200){
             $scope.cursos = JSOG.decode(response.data);
@@ -20,7 +23,7 @@ function CursoController($scope, CursoService) {
             } else{
                 //Tratar erro com pop-up na tela.
             }
-            delete $scope.curso;
+            $scope.curso = {};
         });
     }
 }

@@ -3,6 +3,9 @@ angular.module('Gastromatic')
 
 function ReceitaController($scope, ReceitaService) {
 
+    $scope.receita = {};
+    $scope.pesquisaReceita = {};
+
     ReceitaService.listReceitas().then(function(response) {
         if(response.status == 200){
             $scope.receitas = JSOG.decode(response.data);
@@ -20,7 +23,7 @@ function ReceitaController($scope, ReceitaService) {
             } else{
                 //Tratar erro com pop-up na tela.
             }
-            delete $scope.receita;
+            $scope.receita = {};
         });
     }
 }
