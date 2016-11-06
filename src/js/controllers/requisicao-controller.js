@@ -3,7 +3,6 @@ angular.module('Gastromatic')
 
 function RequisicaoController($scope, RequisicaoService, CursoService) {
 
-
     CursoService.listCursos().then(function (response) {
         if (response.status == 200) {
             $scope.cursosDisponiveis = JSOG.decode(response.data);
@@ -12,36 +11,41 @@ function RequisicaoController($scope, RequisicaoService, CursoService) {
         }
     });
 
-    $scope.changedRoteiro = function () {
-        var roteiro = $scope.roteiroSelecionado;
+    $scope.changedRoteiro = function (roteiroSelecionado) {
 
-        for (var i = 0; i < roteiro.aulas.length; ++i) {
-            roteiro.aulas[i].selected = true;
+        for (var i = 0; i < roteiroSelecionado.aulas.length; ++i) {
+            roteiroSelecionado.aulas[i].selected = true;
         }
 
-        $scope.geraInsumos();
+        $scope.geraInsumos(roteiroSelecionado.aulas);
     }
 
-    $scope.geraInsumos = function () {
+    $scope.geraInsumos = function (aulas) {
         var insumosSelecionados = [];
-        var roteiro = $scope.roteiroSelecionado;
 
-        if (roteiro != null) {
-            for (var i = 0; i < roteiro.aulas.length; ++i) {
-                if (roteiro.aulas[i].selected) {
-                    var receitasDaAula = roteiro.aulas[i].receitas;
+        if (aulas) {
+            for (var i = 0; i < aulas.length; ++i) {
+                if (aulas[i].selected) {
+                    var receitasDaAula = aulas[i].receitas;
 
                     for (var j = 0; j < receitasDaAula.length; ++j) {
-                        var detalhesReceita = receitasDaAula[j].detalhesReceita;
+                        var detalhesReceita = receitasDaAula[j].receitaInsumo;
 
                         for (var k = 0; k < detalhesReceita.length; ++k) {
-                            var novoDetalhe = {
-                                "insumo": detalhesReceita[k].insumo,
-                                "quantidade": detalhesReceita[k].quantidadeInsumo,
-                                "medida": "TBI"
-                            };
+                            var detalheExistente = getDetalheReceitaByInsumo(insumosSelecionados, detalhesReceita[k].insumo);
 
-                            insumosSelecionados.push(novoDetalhe);
+                            if (detalheExistente) {
+                                detalheExistente.qtdInsumo += detalhesReceita[k].qtdInsumo;
+                            } else {
+
+                                var novoDetalhe = {
+                                    "insumo": detalhesReceita[k].insumo,
+                                    "qtdInsumo": detalhesReceita[k].qtdInsumo,
+                                    "medida": "-"
+                                };
+
+                                insumosSelecionados.push(novoDetalhe);
+                            }
                         }
                     }
                 }
@@ -49,6 +53,15 @@ function RequisicaoController($scope, RequisicaoService, CursoService) {
         }
 
         $scope.insumosFiltrados = insumosSelecionados;
+    }
+
+    function getDetalheReceitaByInsumo(insumosSelecionados, insumoReferencia) {
+
+        var result = insumosSelecionados.filter(function (insumoSelecionado) {
+            return insumoSelecionado.insumo == insumoReferencia;
+        });
+
+        return result ? result[0] : null;
     }
 
     // $scope.checkAll = function() {

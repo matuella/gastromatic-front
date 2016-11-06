@@ -16,7 +16,7 @@
                         <label for="roteiroSelecionado">Roteiros</label>
                         <select id="roteiroSelecionado" class="form-control margin-bottom-10"
                                 ng-options="roteiro as roteiro.nome for roteiro in cursoSelecionado.roteiros track by roteiro.nome"
-                                ng-model="roteiroSelecionado" ng-change="changedRoteiro(roteiro)">
+                                ng-model="roteiroSelecionado" ng-change="changedRoteiro(roteiroSelecionado)">
                         </select>
                     </div>
                     <table class="table table-hover">
@@ -28,7 +28,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="aula in roteiroSelecionado.aulas">
-                            <td><input ng-model="aula.selected" ng-change="geraInsumos()" type="checkbox"/></td>
+                            <td><input ng-model="aula.selected" ng-change="geraInsumos(roteiroSelecionado.aulas)" type="checkbox"/></td>
                             <td>{{aula.nome}}</td>
                         </tr>
                         </tbody>
@@ -55,7 +55,7 @@
                         <tbody>
                         <tr ng-repeat="infoInsumo in insumosFiltrados">
                             <td>{{infoInsumo.insumo.nome}}</td>
-                            <td><input type="text" ng-model="infoInsumo.quantidade"></td>
+                            <td><input type="text" ng-model="infoInsumo.qtdInsumo"></td>
                             <td>{{infoInsumo.medida}}</td>
                             <td><input type="text" ng-model="infoInsumo.observacoes"></td>
                         </tr>
