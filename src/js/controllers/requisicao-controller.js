@@ -17,10 +17,10 @@ function RequisicaoController($scope, RequisicaoService, CursoService) {
             roteiroSelecionado.aulas[i].selected = true;
         }
 
-        $scope.geraInsumos(roteiroSelecionado.aulas);
+        $scope.gerarInsumos(roteiroSelecionado.aulas);
     }
 
-    $scope.geraInsumos = function (aulas) {
+    $scope.gerarInsumos = function (aulas) {
         var insumosSelecionados = [];
 
         if (aulas) {
@@ -35,12 +35,12 @@ function RequisicaoController($scope, RequisicaoService, CursoService) {
                             var detalheExistente = getDetalheReceitaByInsumo(insumosSelecionados, detalhesReceita[k].insumo);
 
                             if (detalheExistente) {
-                                detalheExistente.qtdInsumo += detalhesReceita[k].qtdInsumo;
+                                detalheExistente.qtd += detalhesReceita[k].qtdInsumo;
                             } else {
 
                                 var novoDetalhe = {
                                     "insumo": detalhesReceita[k].insumo,
-                                    "qtdInsumo": detalhesReceita[k].qtdInsumo,
+                                    "qtd": detalhesReceita[k].qtdInsumo,
                                     "medida": "-"
                                 };
 
@@ -53,6 +53,17 @@ function RequisicaoController($scope, RequisicaoService, CursoService) {
         }
 
         $scope.insumosFiltrados = insumosSelecionados;
+    }
+
+    $scope.gerarRequisicaoESolicitacoes = function (insumosFiltrados) {
+
+        RequisicaoService.gerarRequisicaoESolicitacoes(insumosFiltrados).then(function (response) {
+            if (response.status == 200) {
+                alert('REQUISIÇÃO GERADA COM SUCESSO!');
+            } else {
+                //tratar erro
+            }
+        });
     }
 
     function getDetalheReceitaByInsumo(insumosSelecionados, insumoReferencia) {

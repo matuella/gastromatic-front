@@ -28,7 +28,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="aula in roteiroSelecionado.aulas">
-                            <td><input ng-model="aula.selected" ng-change="geraInsumos(roteiroSelecionado.aulas)" type="checkbox"/></td>
+                            <td><input ng-model="aula.selected" ng-change="gerarInsumos(roteiroSelecionado.aulas)" type="checkbox"/></td>
                             <td>{{aula.nome}}</td>
                         </tr>
                         </tbody>
@@ -55,15 +55,15 @@
                         <tbody>
                         <tr ng-repeat="infoInsumo in insumosFiltrados">
                             <td>{{infoInsumo.insumo.nome}}</td>
-                            <td><input type="text" ng-model="infoInsumo.qtdInsumo"></td>
-                            <td>{{infoInsumo.medida}}</td>
-                            <td><input type="text" ng-model="infoInsumo.observacoes"></td>
+                            <td><input type="text" ng-model="infoInsumo.qtd"></td>
+                            <td>{{infoInsumo.medida}}</td> <!-- infoInsumo.insumo.medida.nome -->
+                            <td><input type="text" ng-model="infoInsumo.observacao"></td>
                         </tr>
                         </tbody>
                     </table>
                 </rd-widget-body>
                 <rd-widget-footer>
-                    <button type="button" class="btn btn-success" ng-click="">Gerar
+                    <button type="button" class="btn btn-success" ng-click="gerarRequisicaoESolicitacoes(insumosFiltrados)">Gerar
                     </button>
                 </rd-widget-footer>
             </rd-widget>
