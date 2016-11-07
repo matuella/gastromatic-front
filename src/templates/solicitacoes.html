@@ -1,0 +1,24 @@
+<div class="row" ng-controller="SolicitacaoController">
+    <div class="col-sm-12">
+        <h3>Solicitações disponíveis</h3>
+        <div class="table-responsive" ng-repeat="soli in solicitacoes">
+            <table class="table table-striped">
+                <caption class="text-left">Solicitação - {{soli.id}}</caption>
+                <thead>
+                <tr>
+                    <th>Insumo</th>
+                    <th>Quantidade</th>
+                    <th>Observação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="reqIns in soli.requisicoesInsumo">
+                    <td>{{reqIns.insumo.nome}}</td>
+                    <td>{{reqIns.qtd}}</td>
+                    <td>{{reqIns.observacao}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

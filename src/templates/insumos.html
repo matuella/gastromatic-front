@@ -1,0 +1,77 @@
+<div class="row" ng-controller="InsumoController">
+    <div class="col-md-6 col-sm-12">
+        <rd-widget>
+            <rd-widget-header icon="fa-tasks" title="Cadastrar Insumo">
+            </rd-widget-header>
+            <rd-widget-body>
+                <div class="form-group">
+                    <label for="nomeInsumo">Nome</label>
+                    <input id="nomeInsumo" type="text" class="form-control margin-bottom-10" placeholder="Nome do insumo"
+                           ng-model="insumo.nome">
+                </div>
+                <div class="form-group">
+                    <label for="qtdMinimaInsumo">Quantidade Mínima</label>
+                    <input id="qtdMinimaInsumo" type="number" class="form-control margin-bottom-10" placeholder="Quantidade mínima do insumo"
+                           ng-model="insumo.qtdMinima">
+                </div>
+                <div class="form-group">
+                    <label for="qtdAtualInsumo">Quantidade Atual</label>
+                    <input id="qtdAtualInsumo" type="number" class="form-control margin-bottom-10" placeholder="Quantidade atual do insumo"
+                           ng-model="insumo.qtdAtual">
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label for="perecivelInsumo">
+                            <input id="perecivelInsumo" type="checkbox" ng-model="insumo.perecivel">
+                            Perecível
+                        </label>
+                    </div>
+                </div>
+            </rd-widget-body>
+            <rd-widget-footer>
+                <button type="button" class="btn btn-success" ng-click="addInsumo(insumo)">Cadastrar
+                </button>
+            </rd-widget-footer>
+        </rd-widget>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <rd-widget>
+            <rd-widget-header icon="fa-tasks" title="Insumos cadastrados">
+                <input type="text" class="form-control" placeholder="Nome do roteiro"
+                       ng-model="pesquisaInsumo.nome">
+            </rd-widget-header>
+            <rd-widget-body classes="large no-padding">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Quantidade Mínima</th>
+                            <th>Quantidade Atual</th>
+                            <th>Perecível</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="ins in insumos | filter: pesquisaInsumo">
+                            <td>{{ins.nome}}</td>
+                            <td>{{ins.qtdMinima}}</td>
+                            <td>{{ins.qtdAtual}}</td>
+                            <td>{{ins.perecivel ? 'SIM' : 'NÃO'}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </rd-widget-body>
+            <rd-widget-footer>
+                <ul class="pagination pagination-sm pull-right">
+                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </rd-widget-footer>
+        </rd-widget>
+    </div>
+</div>

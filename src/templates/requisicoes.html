@@ -1,0 +1,72 @@
+<div ng-controller="RequisicaoController">
+    <div class="row">
+        <div class="col-sm-12">
+            <rd-widget>
+                <rd-widget-header icon="fa-tasks" title="Gerar Requisição">
+                </rd-widget-header>
+                <rd-widget-body>
+                    <div class="form-group">
+                        <label for="cursoSelecionado">Cursos</label>
+                        <select id="cursoSelecionado" class="form-control margin-bottom-10"
+                                ng-options="curso as curso.nome for curso in cursosDisponiveis track by curso.nome"
+                                ng-model="cursoSelecionado">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="roteiroSelecionado">Roteiros</label>
+                        <select id="roteiroSelecionado" class="form-control margin-bottom-10"
+                                ng-options="roteiro as roteiro.nome for roteiro in cursoSelecionado.roteiros track by roteiro.nome"
+                                ng-model="roteiroSelecionado" ng-change="changedRoteiro(roteiroSelecionado)">
+                        </select>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Adicionar</th>
+                            <th>Aula</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="aula in roteiroSelecionado.aulas">
+                            <td><input ng-model="aula.selected" ng-change="gerarInsumos(roteiroSelecionado.aulas)" type="checkbox"/></td>
+                            <td>{{aula.nome}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </rd-widget-body>
+            </rd-widget>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <rd-widget>
+                <rd-widget-header icon="fa-tasks" title="Insumos associados">
+                </rd-widget-header>
+                <rd-widget-body classes="no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Insumo</th>
+                            <th>Quantidade</th>
+                            <th>Medida</th>
+                            <th>Observação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="infoInsumo in insumosFiltrados">
+                            <td>{{infoInsumo.insumo.nome}}</td>
+                            <td><input type="text" ng-model="infoInsumo.qtd"></td>
+                            <td>{{infoInsumo.medida}}</td> <!-- infoInsumo.insumo.medida.nome -->
+                            <td><input type="text" ng-model="infoInsumo.observacao"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </rd-widget-body>
+                <rd-widget-footer>
+                    <button type="button" class="btn btn-success" ng-click="gerarRequisicaoESolicitacoes(insumosFiltrados)">Gerar
+                    </button>
+                </rd-widget-footer>
+            </rd-widget>
+        </div>
+    </div>
+</div>

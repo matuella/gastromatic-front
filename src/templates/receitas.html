@@ -1,0 +1,54 @@
+<div class="row" ng-controller="ReceitaController">
+    <div class="col-md-6 col-sm-12">
+        <rd-widget>
+            <rd-widget-header icon="fa-tasks" title="Cadastrar Receita">
+            </rd-widget-header>
+            <rd-widget-body>
+                <div class="form-group">
+                    <label for="nomeReceita">Nome</label>
+                    <input id="nomeReceita" type="text" class="form-control margin-bottom-10"
+                           placeholder="Nome da receita"
+                           ng-model="receita.nome">
+                </div>
+            </rd-widget-body>
+            <rd-widget-footer>
+                <button type="button" class="btn btn-success" ng-click="addReceita(receita)">Cadastrar
+                </button>
+            </rd-widget-footer>
+        </rd-widget>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <rd-widget>
+            <rd-widget-header icon="fa-tasks" title="Receitas cadastradas">
+                <input type="text" class="form-control" placeholder="Nome da receita"
+                       ng-model="pesquisaReceita.nome">
+            </rd-widget-header>
+            <rd-widget-body classes="large no-padding">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="rec in receitas | filter: pesquisaReceita">
+                            <td>{{rec.nome}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </rd-widget-body>
+            <rd-widget-footer>
+                <ul class="pagination pagination-sm pull-right">
+                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </rd-widget-footer>
+        </rd-widget>
+    </div>
+</div>

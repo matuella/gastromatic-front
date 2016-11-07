@@ -1,1 +1,1 @@
-web: node server.js
+web: node node_modules/bower/lib/bin/bower install && node node_modules/gulp/bin/gulp build && node node_modules/gulp/bin/gulp prodserver
