@@ -36,5 +36,9 @@ angular.module('Gastromatic').config(['$stateProvider', '$urlRouterProvider',
                 url: '/requisicoes',
                 templateUrl: 'templates/requisicoes.html'
             })
+            .state('solicitacoes', {
+                url: '/solicitacoes',
+                templateUrl: 'templates/solicitacoes.html'
+            })
     }
 ]);

@@ -3,7 +3,7 @@
         <rd-widget>
             <rd-widget-header icon="fa-tasks" title="Cadastrar Insumo">
             </rd-widget-header>
-            <rd-widget-body classes="medium">
+            <rd-widget-body>
                 <div class="form-group">
                     <label for="nomeInsumo">Nome</label>
                     <input id="nomeInsumo" type="text" class="form-control margin-bottom-10" placeholder="Nome do insumo"
@@ -40,7 +40,7 @@
                 <input type="text" class="form-control" placeholder="Nome do roteiro"
                        ng-model="pesquisaInsumo.nome">
             </rd-widget-header>
-            <rd-widget-body classes="medium no-padding">
+            <rd-widget-body classes="large no-padding">
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -56,7 +56,7 @@
                             <td>{{ins.nome}}</td>
                             <td>{{ins.qtdMinima}}</td>
                             <td>{{ins.qtdAtual}}</td>
-                            <td>{{ins.perecivel}}</td>
+                            <td>{{ins.perecivel ? 'SIM' : 'NÃO'}}</td>
                         </tr>
                         </tbody>
                     </table>
